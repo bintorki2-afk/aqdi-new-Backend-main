@@ -451,16 +451,38 @@ class AnalysisSeeder extends Seeder
     private function seedRefundableContracts(array $contracts, array $employeeIds): void
     {
         $completed = array_values(array_filter($contracts, fn (Contract $c) => $c->is_completed));
-        $sample = array_slice($completed, 0, min(15, count($completed)));
+        $sample = array_slice($completed, 0, min(24, count($completed)));
 
-        foreach ($sample as $contract) {
+        // Spread refund requests across the four workflow states the return-orders
+        // page buckets by, and date several of them today so the page shows real
+        // data under its default today filter instead of an empty list.
+        $states = [
+            [null, false],  // pending    — بانتظار الموافقة
+            [true, false],  // processing — قيد المعالجة
+            [true, true],   // completed  — تم الاسترجاع
+            [false, false], // rejected   — مرفوضة
+        ];
+        $dates = [
+            Carbon::today()->addHours(9),
+            Carbon::today()->addHours(13),
+            Carbon::now()->subDay(),
+            Carbon::now()->startOfWeek()->addDay(),
+            Carbon::now()->startOfMonth()->addDays(3),
+            Carbon::now()->startOfYear()->addMonths(2),
+        ];
+
+        foreach ($sample as $i => $contract) {
+            [$adminConfirmed, $isRefunded] = $states[$i % count($states)];
+
             RefundableContract::create([
                 'user_id' => $contract->user_id,
                 'contract_id' => $contract->id,
                 'employee_id' => $employeeIds[array_rand($employeeIds)],
                 'refund_amount' => rand(250, 3200),
                 'notes' => 'استرجاع طلب — بيانات تحليلات',
-                'created_at' => $contract->created_at?->copy()->addDay() ?? Carbon::now(),
+                'admin_confirmed' => $adminConfirmed,
+                'is_refunded' => $isRefunded,
+                'created_at' => $dates[$i % count($dates)],
             ]);
         }
     }

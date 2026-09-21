@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             InstructionSectionSeeder::class,
             WebsiteImageSeeder::class,
             SettingsSeeder::class,
+            SettingContractSeeder::class,
         ]);
 
         // Roles & Users

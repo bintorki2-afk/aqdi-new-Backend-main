@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
+
 /*
 |--------------------------------------------------------------------------
 | API v2 Routes
@@ -7,3 +11,64 @@
 */
 
 // Feature routes live in app/Modules/*/Routes.
+
+/*
+| Health check — self-diagnoses the API for external monitors (UptimeRobot,
+| Sentry Crons, etc.). Public (no auth). Returns HTTP 200 when healthy and
+| HTTP 503 when the database is unreachable or a critical reference table is
+| empty (the class of outage that broke the document-type selector).
+*/
+Route::get('/health', function () {
+    // Reference tables that MUST contain seeded data for the site to work.
+    $critical = [
+        'setting_contracts',
+        'regions',
+        'cities',
+        'contract_periods',
+        'payment_types',
+        'unit_types',
+        'unit_usages',
+    ];
+
+    $issues = [];
+    $tables = [];
+    $databaseOk = true;
+
+    try {
+        DB::select('select 1');
+    } catch (\Throwable $e) {
+        $databaseOk = false;
+        $issues[] = 'database unreachable';
+    }
+
+    if ($databaseOk) {
+        foreach ($critical as $table) {
+            try {
+                if (! Schema::hasTable($table)) {
+                    $issues[] = "table '{$table}' is missing";
+                    $tables[$table] = null;
+
+                    continue;
+                }
+                $count = DB::table($table)->count();
+                $tables[$table] = $count;
+                if ($count === 0) {
+                    $issues[] = "table '{$table}' is empty";
+                }
+            } catch (\Throwable $e) {
+                $issues[] = "table '{$table}' check failed";
+                $tables[$table] = null;
+            }
+        }
+    }
+
+    $healthy = $databaseOk && count($issues) === 0;
+
+    return response()->json([
+        'status' => $healthy ? 'ok' : 'degraded',
+        'checked_at' => now()->toIso8601String(),
+        'database' => $databaseOk ? 'ok' : 'unreachable',
+        'issues' => $issues,
+        'tables' => $tables,
+    ], $healthy ? 200 : 503);
+});

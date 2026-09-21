@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /login
+Disallow: /signup
+Disallow: /login-seo
+Sitemap: https://aqdi.sa/sitemap.xml

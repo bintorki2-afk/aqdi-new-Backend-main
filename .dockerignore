@@ -1,0 +1,21 @@
+# Never bake local secrets / local data / dev artifacts into the production image.
+.env
+.env.*
+!.env.example
+database/*.sqlite
+database/*.sqlite-journal
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/app/public/*
+node_modules
+vendor
+.git
+.gitignore
+tests
+serve.log
+error_log
+*.md
+!DEPLOY.md
+tools

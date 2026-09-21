@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Modules\Contracts\Actions\Api\V2;
+
+use App\Http\Requests\Api\V2\Contract\ContractTypeRequest;
+use App\Models\Contract;
+use App\Models\RealEstate;
+use App\Services\ContractUnitsService;
+use InvalidArgumentException;
+
+class StartContractAction
+{
+    public function __construct(
+        private readonly ContractUnitsService $units,
+    ) {}
+
+    /**
+     * @return array{ok: true, contract: Contract}|array{ok: false, message: string, code: int}
+     */
+    public function execute(ContractTypeRequest $request, int $userId): array
+    {
+        $validated = $request->validated();
+
+        $instrumentType = $request->filled('instrument_type')
+            ? ($validated['instrument_type'] ?? null)
+            : null;
+
+        if (! $instrumentType && ! empty($validated['real_id'])) {
+            $instrumentType = RealEstate::query()
+                ->whereKey($validated['real_id'])
+                ->value('instrument_type');
+        }
+
+        $unitPayloads = $request->unitPayloadsForSync();
+        $primaryUnitId = $unitPayloads[0]['unit_id'] ?? (
+            ! empty($validated['real_units_id']) ? (int) $validated['real_units_id'] : null
+        );
+
+        if (! empty($validated['real_id'])) {
+            $realEstate = RealEstate::query()->find($validated['real_id']);
+            $realEstate?->syncNumberOfUnitsInRealestate($primaryUnitId);
+        }
+
+        $contract = Contract::create([
+            'contract_type' => $validated['contract_type'],
+            'instrument_type' => $instrumentType,
+            'is_real' => (bool) ($validated['is_real'] ?? false),
+            'real_id' => $validated['real_id'] ?? null,
+            'real_units_id' => $primaryUnitId,
+            'user_id' => $userId,
+            'step' => Contract::shouldSkipInitialSteps($instrumentType) ? 3 : 1,
+        ]);
+
+        if ($unitPayloads !== []) {
+            try {
+                $this->units->syncForContract($contract, $unitPayloads, $userId);
+            } catch (InvalidArgumentException $e) {
+                return ['ok' => false, 'message' => $e->getMessage(), 'code' => 422];
+            }
+        }
+
+        $contract->load(['units.unitType', 'units.unitUsage']);
+
+        return ['ok' => true, 'contract' => $contract];
+    }
+}

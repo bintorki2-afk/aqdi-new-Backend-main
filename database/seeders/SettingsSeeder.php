@@ -1,0 +1,39 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Setting;
+use Illuminate\Database\Seeder;
+
+class SettingsSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $settings = [
+            'whatsapp' => '966501234567',
+            'instagram' => 'https://instagram.com/aqdi',
+            'twitter' => 'https://twitter.com/aqdi',
+            'snapchat' => 'aqdi_app',
+            'facebook' => 'https://facebook.com/aqdi',
+            'tiktok' => 'https://tiktok.com/@aqdi',
+            'linkedIn' => 'https://linkedin.com/company/aqdi',
+            'whatsapp_contact' => '966501234567',
+            'whatsapp_contract' => '966501234567',
+            'housing_tax' => 15,
+            'commercial_tax' => 15,
+            'application_fees' => 100,
+            'open_payment' => true,
+            'version' => '1',
+            'time_to_documentation_contract' => 7,
+            'text_message_user' => 'مرحباً بك في عقدي، نحن هنا لخدمتك في توثيق عقود الإيجار.',
+            'text_message_admin' => 'تم استلام طلبك وسيتم معالجته في أقرب وقت.',
+        ];
+
+        $setting = Setting::first();
+        if ($setting) {
+            $setting->update($settings);
+        } else {
+            Setting::create($settings);
+        }
+    }
+}

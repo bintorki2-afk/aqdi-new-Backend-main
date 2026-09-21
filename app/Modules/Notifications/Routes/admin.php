@@ -1,0 +1,24 @@
+<?php
+
+use App\Modules\Notifications\Controllers\Admin\NotificationController;
+use App\Modules\Notifications\Controllers\Admin\SmsController;
+use Illuminate\Support\Facades\Route;
+
+// Firebase notifications
+Route::prefix('notifications')->name('notifications.')->controller(NotificationController::class)
+    ->middleware(['auth:sanctum', 'permission:notifications.create'])
+    ->group(function () {
+        Route::post('/send', 'send')->name('send');
+        Route::post('/user', 'sendToUser')->name('user');
+        Route::post('/custom-user', 'sendToCustomUser')->name('custom-user');
+        Route::post('/employee', 'sendToEmployee')->name('employee');
+        Route::post('/custom-employee', 'sendToCustomEmployee')->name('custom-employee');
+        Route::post('/all-users', 'sendToAllUsers')->name('all-users');
+        Route::post('/all-employees', 'sendToAllEmployees')->name('all-employees');
+    });
+
+// Manual SMS send (Taqnyat) — employee token
+Route::prefix('sms')->name('sms.')->controller(SmsController::class)->middleware(['auth:sanctum', 'permission:sms.create'])->group(function () {
+    Route::post('/message', 'sendMessage')->name('message');
+    Route::post('/send', 'send')->name('send');
+});

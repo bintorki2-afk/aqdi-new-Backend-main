@@ -1,0 +1,87 @@
+[
+    {
+        "region_id": 1,
+         
+        "name_ar": "منطقه الرياض",
+        "name_en": "Riyadh"
+       
+    },
+    {
+        "region_id": 2,
+       
+        "name_ar": "منطقه مكه المكرمه",
+        "name_en": "Makkah"
+         
+    },
+    {
+        "region_id": 3,
+         
+        "name_ar": "منطقه المدينه المنوره",
+        "name_en": "Madinah"
+      
+    },
+    {
+        "region_id": 4,
+        
+        "name_ar": "منطقه القصيم",
+        "name_en": "Qassim"
+       
+    },
+    {
+        "region_id": 5,
+         
+        "name_ar": "المنطقه الشرقيه",
+        "name_en": "Eastern Province"
+         
+    },
+    {
+        "region_id": 6,
+         
+        "name_ar": "منطقه عسير",
+        "name_en": "Asir"
+        
+    },
+    {
+        "region_id": 7,
+       
+        "name_ar": "منطقه تبوك",
+        "name_en": "Tabuk"
+        
+    },
+    {
+        "region_id": 8,
+         
+        "name_ar": "منطقه حائل",
+        "name_en": "Hail"
+      
+    },
+    {
+        "region_id": 9,
+        
+        "name_ar": "منطقه الحدود الشماليه",
+        "name_en": "Northern Borders"
+     },
+    {
+        "region_id": 10,
+        
+        "name_ar": "منطقه جازان",
+        "name_en": "Jazan"
+     },
+    {
+        "region_id": 11,
+        
+        "name_ar": "منطقه نجران",
+        "name_en": "Najran"
+     },
+    {
+        "region_id": 12,
+        
+        "name_ar": "منطقه الباحه",
+        "name_en": "Bahah"
+     },
+    {
+        "region_id": 13,
+         "name_ar": "منطقه الجوف",
+        "name_en": "Jawf"
+     }
+]

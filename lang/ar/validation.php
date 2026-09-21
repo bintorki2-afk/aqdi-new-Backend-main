@@ -1,0 +1,315 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validation Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines contain the default error messages used by
+    | the validator class. Some of these rules have multiple versions such
+    | as the size rules. Feel free to tweak each of these messages here.
+    |
+    */
+
+    'accepted' => 'The :attribute field must be accepted.',
+    'accepted_if' => 'The :attribute field must be accepted when :other is :value.',
+    'active_url' => 'The :attribute field must be a valid URL.',
+    'after' => 'The :attribute field must be a date after :date.',
+    'after_or_equal' => 'The :attribute field must be a date after or equal to :date.',
+    'alpha' => 'The :attribute field must only contain letters.',
+    'alpha_dash' => 'The :attribute field must only contain letters, numbers, dashes, and underscores.',
+    'alpha_num' => 'The :attribute field must only contain letters and numbers.',
+    'array' => 'The :attribute field must be an array.',
+    'ascii' => 'The :attribute field must only contain single-byte alphanumeric characters and symbols.',
+    'before' => 'The :attribute field must be a date before :date.',
+    'before_or_equal' => 'The :attribute field must be a date before or equal to :date.',
+    'between' => [
+        'array' => 'The :attribute field must have between :min and :max items.',
+        'file' => 'The :attribute field must be between :min and :max kilobytes.',
+        'numeric' => 'The :attribute field must be between :min and :max.',
+        'string' => 'The :attribute field must be between :min and :max characters.',
+    ],
+    'boolean' => 'The :attribute field must be true or false.',
+    'confirmed' => 'حقل :attribute يجب تأكيده.',
+    'current_password' => 'The password is incorrect.',
+    'date' => 'The :attribute field must be a valid date.',
+    'date_equals' => 'The :attribute field must be a date equal to :date.',
+    'date_format' => 'The :attribute field must match the format :format.',
+    'decimal' => 'The :attribute field must have :decimal decimal places.',
+    'declined' => 'The :attribute field must be declined.',
+    'declined_if' => 'The :attribute field must be declined when :other is :value.',
+    'different' => 'The :attribute field and :other must be different.',
+    'digits' => 'The :attribute field must be :digits digits.',
+    'digits_between' => 'The :attribute field must be between :min and :max digits.',
+    'dimensions' => 'The :attribute field has invalid image dimensions.',
+    'distinct' => 'The :attribute field has a duplicate value.',
+    'doesnt_end_with' => 'The :attribute field must not end with one of the following: :values.',
+    'doesnt_start_with' => 'The :attribute field must not start with one of the following: :values.',
+    'email' => ' :attribute يجب أن يكون بريداً صالحاً.',
+    'ends_with' => 'The :attribute field must end with one of the following: :values.',
+    'enum' => 'القيمة المحددة :attribute غير موجودة.',
+    'exists' => 'القيمة المحددة :attribute غير موجودة.',
+    'file' => 'The :attribute field must be a file.',
+    'filled' => 'The :attribute field must have a value.',
+    'gt' => [
+        'array' => 'The :attribute field must have more than :value items.',
+        'file' => 'The :attribute field must be greater than :value kilobytes.',
+        'numeric' => 'The :attribute field must be greater than :value.',
+        'string' => 'The :attribute field must be greater than :value characters.',
+    ],
+    'gte' => [
+        'array' => 'The :attribute field must have :value items or more.',
+        'file' => 'The :attribute field must be greater than or equal to :value kilobytes.',
+        'numeric' => 'The :attribute field must be greater than or equal to :value.',
+        'string' => 'The :attribute field must be greater than or equal to :value characters.',
+    ],
+    'image' => 'حقل :attribute يجب أن يكون صورة.',
+    'in' => 'القيمة المحددة :attribute غير موجودة.',
+    'in_array' => 'The :attribute field must exist in :other.',
+    'integer' => 'The :attribute field must be an integer.',
+    'ip' => 'The :attribute field must be a valid IP address.',
+    'ipv4' => 'The :attribute field must be a valid IPv4 address.',
+    'ipv6' => 'The :attribute field must be a valid IPv6 address.',
+    'json' => 'The :attribute field must be a valid JSON string.',
+    'lowercase' => 'The :attribute field must be lowercase.',
+    'lt' => [
+        'array' => 'The :attribute field must have less than :value items.',
+        'file' => 'The :attribute field must be less than :value kilobytes.',
+        'numeric' => 'The :attribute field must be less than :value.',
+        'string' => 'The :attribute field must be less than :value characters.',
+    ],
+    'lte' => [
+        'array' => 'The :attribute field must not have more than :value items.',
+        'file' => 'The :attribute field must be less than or equal to :value kilobytes.',
+        'numeric' => 'The :attribute field must be less than or equal to :value.',
+        'string' => 'The :attribute field must be less than or equal to :value characters.',
+    ],
+    'mac_address' => 'The :attribute field must be a valid MAC address.',
+    'max' => [
+        'array' => 'The :attribute field must not have more than :max items.',
+        'file' => 'The :attribute field must not be greater than :max kilobytes.',
+        'numeric' => 'The :attribute field must not be greater than :max.',
+        'string' => 'The :attribute field must not be greater than :max characters.',
+    ],
+    'max_digits' => ' :attribute يجب ألا يحتوي   على أكثر من :max .',
+    'mimes' => 'حقل ال :attribute يجب ان يكون من نوع :values.',
+    'mimetypes' => 'The :attribute field must be a file of type: :values.',
+    'min' => [
+        'array' => 'The :attribute field must have at least :min items.',
+        'file' => 'The :attribute field must be at least :min kilobytes.',
+        'numeric' => 'حقل :attribute يجب أن لا يقل عن :min.',
+        'string' => 'The :attribute field must be at least :min characters.',
+    ],
+       'register'=>[
+
+        'success' => ' تم إنشاء الحساب بنجاح. يرجى تأكيد الحساب.',
+    ],
+
+    'min_digits' => 'The :attribute field must have at least :min digits.',
+    'missing' => 'The :attribute field must be missing.',
+    'missing_if' => 'The :attribute field must be missing when :other is :value.',
+    'missing_unless' => 'The :attribute field must be missing unless :other is :value.',
+    'missing_with' => 'The :attribute field must be missing when :values is present.',
+    'missing_with_all' => 'The :attribute field must be missing when :values are present.',
+    'multiple_of' => 'The :attribute field must be a multiple of :value.',
+    'not_in' => 'القيمة المحددة :attribute غير موجودة.',
+    'not_regex' => 'The :attribute field format is invalid.',
+    'numeric' => 'The :attribute field must be a number.',
+    'password' => [
+        'letters' => 'The :attribute field must contain at least one letter.',
+        'min'=>'يجب أن يتكون  :attribute على ثمانيه احرف  على الأقل',
+        'mixed' => ' :attribute يجب أن يحتوي الحقل على حرف كبير واحد وحرف صغير واحد على الأقل',
+        'numbers' => 'The :attribute field must contain at least one number.',
+        'symbols' => 'The :attribute field must contain at least one symbol.',
+        'uncompromised' => 'The given :attribute has appeared in a data leak. Please choose a different :attribute.',
+     ],
+    'present' => 'The :attribute field must be present.',
+    'prohibited' => 'حقل :attribute يجب أن يكون فارغاً.',
+    'prohibited_if' => 'The :attribute field is prohibited when :other is :value.',
+    'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
+    'prohibits' => 'The :attribute field prohibits :other from being present.',
+    'regex' => 'The :attribute field format is invalid.',
+    'required' => 'حقل :attribute مطلوب.',
+    'required_array_keys' => 'The :attribute field must contain entries for: :values.',
+    'required_if_electronic' => ' صورة العقد الكترونيا مطلوبه عندما يكون :other إلكترونياً.',
+    'required_if_handwritten' => ' :attribute مطلوب عندما يكون :other مكتوب بخط اليد.',
+    'required_if_strong_argument' => ' :attribute مطلوب عندما يكون :other  حجه استحكام.',
+    'required_if_agency_photo'=>' مطلوب شهادة الوفاة  .',
+    'prohibited_if_iban'=>'لان المالك متوفي يرجي اضافة ايبان الوكيل  .',
+    'required_if_agent'=>'لان المالك متوفي لابد اضافة الوكيل  .',
+
+    'prohibited_if_mobile'=>'لان المالك متوفي يرجي اضافة رقم الوكيل  .',
+
+    
+
+    'required_if_accepted' => 'The :attribute field is required when :other is accepted.',
+    'required_unless' => 'The :attribute field is required unless :other is in :values.',
+    'required_with' => 'The :attribute field is required when :values is present.',
+    'required_with_all' => 'The :attribute field is required when :values are present.',
+    'required_without' => 'The :attribute field is required when :values is not present.',
+    'required_without_all' => 'The :attribute field is required when none of :values are present.',
+    'same' => 'The :attribute يجب ان يطابق :other.',
+    'size' => [
+        'array' => 'The :attribute field must contain :size items.',
+        'file' => 'The :attribute field must be :size kilobytes.',
+        'numeric' => 'The :attribute field must be :size.',
+        'string' => 'The :attribute field must be :size characters.',
+    ],
+    'starts_with' => 'The :attribute field must start with one of the following: :values.',
+    'string' => 'The :attribute field must be a string.',
+    'timezone' => 'The :attribute field must be a valid timezone.',
+    'unique' => ' :attribute موجود بالفعل    .',
+    'uploaded' => 'The :attribute failed to upload.',
+    'uppercase' => 'The :attribute field must be uppercase.',
+    'url' => 'The :attribute field must be a valid URL.',
+    'ulid' => 'The :attribute field must be a valid ULID.',
+    'uuid' => 'The :attribute field must be a valid UUID.',
+    'invalid'=>' : رقم الجوال غير متطابق مع كلمه السر',
+    'block_account'=>'للاسف هذا الحساب محظور من الدخول للموقع',
+    'unverified_account'=>'هذا الحساب غير مفعل برجاء تفعيل الحساب ',
+    'invalid_password' => 'كلمة المرور غير متطابقة، يرجى التأكد من تطابق كلمتي المرور.',
+
+   'valid_contract_date'=>'لابد ان لا يمر علي بدء العقد اكثر من 280 يوم',
+    // step2
+
+    'required_if_owner'=> ' :attribute مطلوب عندما يكون :other المالك حي يرزق .',
+    'start_mobile'=>'يجب أن يبدأ رقم الهاتف بالرقم 5',
+    'required_number_of_floors'=>'حقل عدد الطوابق مطلوب',
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Validation Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify custom validation messages for attributes using the
+    | convention "attribute.rule" to name the lines. This makes it quick to
+    | specify a specific custom language line for a given attribute rule.
+    |
+    */
+
+    'custom' => [
+        'attribute-name' => [
+            'rule-name' => 'custom-message',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Validation Attributes
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used to swap our attribute placeholder
+    | with something more reader friendly such as "E-Mail Address" instead
+    | of "email". This simply helps us make our message more expressive.
+    |
+    */
+
+    'attributes' => [
+        'fname' => "الاسم الأول",
+        'lname' => "الاسم الاخير",
+        'mobile' => "رقم الجوال",
+        'email' => "البريد الإلكتروني",
+        'password' => "كلمة المرور",
+        'verification_code' => "كود التفعيل",
+        'code' => "الكود",
+        'new_password' => 'كلمة المرور',
+        'city_id' => "المدينة",
+        'contract_type' => 'نوع العقد',
+        'contract_ownership' => 'ملكية العقد',
+        'instrument_type' => 'نوع الصك',
+        'instrument_number' => 'رقم الصك',
+        'instrument_history' => 'تاريخ الصك',
+        'old_handwritten_photo' => 'صورة الصك',
+        'image_instrument' => 'صورة الصك',
+        'image_instrument_from_the_front' => 'صورة الصك من الأمام',
+        'image_instrument_from_the_back' => 'صورة الصك من الخلف',
+        'image_address' => 'صورة العنوان',
+        'age_of_the_property' => 'عمر العقار',
+        'number_of_units_per_floor' => 'عدد الوحدات في الدور',
+        'number_of_units_in_realestate' => 'عدد الوحدات في العقار',
+        'latitude' => 'خط العرض',
+        'longitude' => 'خط الطول',
+        'strong_argument_photo' => 'صورة حجة الاستحكام',
+        'property_owner_is_deceased' => 'حالة صاحب العقار',
+        'property_type_id' => 'نوع العقار',
+        'property_usages_id' => 'استخدام العقار',
+        'property_region_id' => 'منطقة العقار',
+        'property_city_id' => 'المدينة',
+        'neighborhood' => 'الحي',
+        'building_number' => 'رقم المبني',
+        'postal_code' => 'الرمز البريدي',
+        'extra_figure' => 'الرقم الإضافي',
+        'name_real_estate' => 'اسم العقار',
+        'property_owner_id_num' => 'رقم هوية المالك',
+        'property_owner_dob' => 'تاريخ ميلاد المالك',
+        'property_owner_dob_hijri_day' => 'يوم تاريخ ميلاد المالك',
+        'property_owner_dob_hijri_month' => 'شهر تاريخ ميلاد المالك',
+        'property_owner_dob_hijri_year' => 'سنة تاريخ ميلاد المالك',
+        'dob_of_property_owner_agent_day' => 'يوم تاريخ ميلاد الوكيل',
+        'dob_of_property_owner_agent_month' => 'شهر تاريخ ميلاد الوكيل',
+        'dob_of_property_owner_agent_year' => 'سنة تاريخ ميلاد الوكيل',
+        'agency_instrument_date_of_property_owner_day' => 'يوم تاريخ صك الوكالة',
+        'agency_instrument_date_of_property_owner_month' => 'شهر تاريخ صك الوكالة',
+        'agency_instrument_date_of_property_owner_year' => 'سنة تاريخ صك الوكالة',
+        'property_owner_mobile' => 'رقم جوال المالك',
+        'property_owner_iban' => 'رقم آيبان الحساب البنكي للمالك',
+        'add_legal_agent_of_owner' => 'إضافة ممثل أو وكيل شرعي لمالك العقار',
+        'id_num_of_property_owner_agent' => 'رقم هوية الوكيل الشرعي لمالك العقار',
+        'dob_gregorian_of_property_owner_agent' => 'تاريخ ميلاد الوكيل الشرعي لمالك العقار',
+        'dob_hijri_of_property_owner_agent' => 'تاريخ الميلاد بالهجري للوكيل الشرعي لمالك العقار',
+        'mobile_of_property_owner_agent' => 'رقم جوال الوكيل الشرعي لمالك العقار',
+        'agency_number_in_instrument_of_property_owner' => 'رقم الوكالة بالصك للوكيل الشرعي لمالك العقار',
+        'agency_instrument_date_of_property_owner' => 'تاريخ صك الوكالة للوكيل الشرعي لمالك العقار',
+        'agent_iban_of_property_owner' => 'رقم الآيبان للوكيل الشرعي لمالك العقار',
+        'tenant_id_num' => 'رقم هوية المستأجر',
+        'tenant_dob_gregorian' => 'تاريخ ميلاد المستأجر',
+        'tenant_dob' => 'تاريخ ميلاد المستأجر',
+        'tenant_mobile' => 'رقم جوال المستأجر',
+        'add_legal_agent_of_tenant' => 'إضافة ممثل أو وكيل شرعي لمستأجر العقار',
+        'id_num_of_property_tenant_agent' => 'رقم هوية الوكيل الشرعي لمستأجر العقار',
+        'dob_gregorian_of_property_tenant_agent' => 'تاريخ ميلاد الوكيل الشرعي لمستأجر العقار',
+        'dob_of_property_tenant_agent' => 'تاريخ ميلاد الوكيل الشرعي لمستأجر العقار',
+        'mobile_of_property_tenant_agent' => 'رقم جوال الوكيل الشرعي لمستأجر العقار',
+        'agency_number_in_instrument_of_property_tenant' => 'رقم الوكالة بالصك للوكيل الشرعي لمستأجر العقار',
+        'agency_instrument_date_of_property_tenant' => 'تاريخ صك الوكالة للوكيل الشرعي لمستأجر العقار',
+        'tenant_entity' => 'كيان المستأجر',
+        'tenant_entity_region_id' => 'منطقة كيان المستأجر',
+        'tenant_entity_city_id' => 'مدينة كيان المستأجر',
+        'tenant_entity_unified_registry_number' => 'الرقم المؤحد للسجل',
+        'authorization_type' => 'نوع تفويض كيان المستأجر',
+        'authorization_region_id' => 'منطقة ممثل السجل لكيان المستأجر',
+        'authorization_city_id' => 'مدينة ممثل السجل لكيان المستأجر',
+        'copy_of_the_authorization_or_agency' => 'صورة من التفويض لممثل كيان المستأجر',
+        'unit_number' => 'رقم الوحدة',
+        'unit_type_id' => 'نوع الوحدة',
+        'tootal_rooms' => 'عدد الغرف',
+        'unit_usage' => 'استخدام الوحدة',
+        'floor_number' => 'رقم الطابق',
+        'unit_area' => 'مساحة الوحدة',
+        'electricity_meter_number' => 'رقم عداد الكهرباء',
+        'water_meter_number' => 'رقم عداد الماء',
+        'number_of_unit_air_conditioners' => 'عدد مكيفات الوحدة',
+        'contract_starting_date' => 'تاريخ بداية العقد',
+        'contract_starting_date_day' => 'يوم تاريخ بداية العقد',
+        'contract_starting_date_month' => 'شهر تاريخ بداية العقد',
+        'contract_starting_date_year' => 'سنة تاريخ بداية العقد',
+        'contract_term_in_years' => 'مدة العقد بالسنة',
+        'annual_rent_amount_for_the_unit' => 'مبلغ الإيجار السنوي',
+        'payment_type_id' => 'طريقة الدفعات',
+        'sub_delay' => 'الغرامة اليومية',
+        'premium_membership_for_free' => 'عضوية مميزة مجاناً',
+        'daily_fine' => 'التأخير من الباطن',
+        'other_conditions' => 'شروط أخرى',
+        'tenant_roles' => 'صلاحيات المستخدم',
+        'tenant_role_id' => 'صفة المستأجر',
+        'tenant_role_ids' => 'صفات المستأجر',
+        'additional_terms' => 'إضافة شروط',
+        'text_additional_terms' => 'نص الشروط الإضافية',
+        'notes_edits' => 'ملاحظات التعديلات على العقد',
+        'receipt_image' => 'صورة الوصل',
+        'client_account_holder_name' => 'اسم صاحب الحساب',
+        'stars' => 'التقييم',
+    ],
+
+];

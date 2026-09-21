@@ -1,0 +1,28 @@
+# syntax=docker/dockerfile:1
+###############################################################################
+# Aqdi Backend — Railway TEST image
+# Single container that serves HTTP directly on $PORT (php artisan serve).
+# Separate from the production Dockerfile (php-fpm). For staging/testing only.
+###############################################################################
+FROM php:8.2-cli
+
+# ----- System deps + PHP extensions -----------------------------------------
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        git unzip libzip-dev libpng-dev libjpeg-dev libfreetype6-dev \
+        libonig-dev libxml2-dev libicu-dev zlib1g-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j"$(nproc)" \
+        pdo_mysql mbstring bcmath gd zip exif pcntl intl opcache \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# ----- Composer -------------------------------------------------------------
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /app
+COPY . .
+
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist \
+    && chmod +x railway-start.sh \
+    && chmod -R 775 storage bootstrap/cache
+
+CMD ["bash", "railway-start.sh"]

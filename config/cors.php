@@ -39,6 +39,7 @@ return [
     ],
     'allowed_origins_patterns' => [
         '#^https?://([a-z0-9-]+\.)?aqdi\.sa$#i',
+        '#^https?://([a-z0-9-]+\.)?vercel\.app$#i',
         '#^https?://localhost:\d+$#',
         '#^https?://127\.0\.0\.1:\d+$#',
     ],

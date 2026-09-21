@@ -10,11 +10,11 @@ echo "[railway-start] clearing config cache"
 php artisan config:clear || true
 php artisan cache:clear || true
 
-echo "[railway-start] running migrations"
-php artisan migrate --force
+echo "[railway-start] fresh migrate (TEST db — wipes and rebuilds clean schema)"
+php artisan migrate:fresh --force
 
-echo "[railway-start] seeding test data (idempotent)"
-php artisan db:seed --force || true
+echo "[railway-start] seeding test data"
+php artisan db:seed --force || echo "[railway-start] seed reported an error (continuing to serve)"
 
 echo "[railway-start] linking storage"
 php artisan storage:link || true

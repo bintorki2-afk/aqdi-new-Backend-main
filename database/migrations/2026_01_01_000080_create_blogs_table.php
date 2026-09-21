@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('image_alt')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
-            $table->text('slug');
+            $table->string('slug');
             $table->string('category', 64)->nullable();
             $table->string('category_label_ar', 191)->nullable();
             $table->string('author', 191)->nullable();

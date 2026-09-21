@@ -72,3 +72,8 @@ Route::get('/health', function () {
         'tables' => $tables,
     ], $healthy ? 200 : 503);
 });
+
+// TEMPORARY: verifies backend Sentry reporting. Remove after confirming.
+Route::get('/sentry-test', function () {
+    throw new \RuntimeException('AQDI backend Sentry test error');
+});

@@ -3,7 +3,7 @@
 use App\Modules\Users\Controllers\Api\AccountController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'ensure.customer'])->group(function () {
     Route::controller(AccountController::class)->group(function () {
         Route::get('/profile', 'profile');
         Route::post('/profile', 'updateProfile');

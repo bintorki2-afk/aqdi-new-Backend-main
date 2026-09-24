@@ -11,7 +11,7 @@ Route::get('/contracts/{contract}/deed-image/{field}', [DeedImageController::cla
     ->middleware('signed')
     ->name('contracts.deed-image');
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'ensure.customer'])->group(function () {
     Route::prefix('contract')->name('v2.contract.')->controller(V2ContractController::class)->group(function () {
         Route::post('/start', 'start')->name('start');
         Route::post('/step1', 'step1');

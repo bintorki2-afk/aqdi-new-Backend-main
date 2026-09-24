@@ -4,7 +4,7 @@ use App\Modules\Coupons\Controllers\Api\UserCouponController;
 use App\Modules\Coupons\Controllers\Api\V2\CouponController as V2CouponController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'ensure.customer'])->group(function () {
     Route::controller(UserCouponController::class)->group(function () {
         Route::get('/coupons/mine', 'mine');
         Route::post('/coupons/login-notification/ack', 'acknowledge');

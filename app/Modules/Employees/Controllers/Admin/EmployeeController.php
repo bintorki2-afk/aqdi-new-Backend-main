@@ -15,6 +15,7 @@ use App\Http\Resources\Admin\V2\Api\SalaryResource;
 use App\Http\Traits\Responser;
 use App\Models\Employee;
 use App\Models\Role;
+use App\Support\AuthenticatedEmployee;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -99,10 +100,53 @@ class EmployeeController extends Controller
         }
     }
 
+    /**
+     * Prevent privilege escalation via role assignment. A non-admin employee
+     * may not assign a full-access (admin) role, nor any role that carries a
+     * permission the actor does not already hold. Admins may assign any role.
+     * Returns an error response to short-circuit, or null to proceed.
+     */
+    protected function denyRoleEscalation(?int $roleId): ?\Illuminate\Http\JsonResponse
+    {
+        if ($roleId === null) {
+            return null;
+        }
+
+        $actor = AuthenticatedEmployee::from(request());
+
+        // Full-access (admin) actors may assign any role.
+        if ($actor !== null && $actor->isSystemAdmin()) {
+            return null;
+        }
+
+        $role = Role::with('permissions')->find($roleId);
+        if ($role === null) {
+            return null; // existence already validated by the FormRequest
+        }
+
+        // A non-admin may never grant a full-access (admin) role.
+        if ($role->isFullAccess()) {
+            return $this->errorMessage(trans('api.forbidden'), 403);
+        }
+
+        // The target role's active permissions must be a subset of the actor's.
+        foreach ($role->permissions->where('is_active', true)->pluck('name') as $permission) {
+            if ($actor === null || ! $actor->hasPermission($permission)) {
+                return $this->errorMessage(trans('api.forbidden'), 403);
+            }
+        }
+
+        return null;
+    }
+
     public function store(StoreEmployeeRequest $request)
     {
         try {
             $data = $request->validated();
+
+            if ($denied = $this->denyRoleEscalation($data['role_id'] ?? null)) {
+                return $denied;
+            }
 
             if (isset($data['password'])) {
                 $data['password'] = Hash::make($data['password']);
@@ -153,6 +197,10 @@ class EmployeeController extends Controller
             $employee = Employee::findOrFail($id);
 
             $data = $request->validated();
+
+            if ($denied = $this->denyRoleEscalation($data['role_id'] ?? null)) {
+                return $denied;
+            }
 
             if (isset($data['password'])) {
                 $data['password'] = Hash::make($data['password']);

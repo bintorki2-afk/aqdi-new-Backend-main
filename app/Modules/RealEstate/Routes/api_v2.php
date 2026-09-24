@@ -5,7 +5,7 @@ use App\Modules\RealEstate\Controllers\Api\V2\SavedRealEstateController as V2Sav
 use App\Modules\RealEstate\Controllers\Api\V2\UnitEstateController as V2UnitEstateController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'ensure.customer'])->group(function () {
     Route::controller(V2SavedRealEstateController::class)->group(function () {
         Route::post('/save/property', 'SavedRealEstate');
     });

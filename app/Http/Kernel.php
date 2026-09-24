@@ -74,5 +74,6 @@ class Kernel extends HttpKernel
         'seo' => \App\Http\Middleware\PreventSeoAccess::class,
         'permission' => \App\Http\Middleware\CheckEmployeePermission::class,
         'employee.bearer' => \App\Http\Middleware\PreferEmployeeBearerToken::class,
+        'ensure.customer' => \App\Http\Middleware\EnsureCustomer::class,
     ];
 }

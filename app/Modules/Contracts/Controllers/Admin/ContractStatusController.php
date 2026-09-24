@@ -20,7 +20,7 @@ class ContractStatusController extends Controller
     {
         try {
             $query = ContractStatus::query();
-            $contractStatuses = $query->paginate($request->get('per_page', 20));
+            $contractStatuses = $query->paginate($this->perPageFromRequest($request));
             return $this->apiResponse(
                 [
                     'items' => $contractStatuses->items(),

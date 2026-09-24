@@ -21,7 +21,7 @@ class DraftContractStatusController extends Controller
     {
         try {
             $query = DraftContractStatus::query()->orderBy('id');
-            $statuses = $query->paginate($request->get('per_page', 20));
+            $statuses = $query->paginate($this->perPageFromRequest($request));
 
             return $this->apiResponse(
                 [

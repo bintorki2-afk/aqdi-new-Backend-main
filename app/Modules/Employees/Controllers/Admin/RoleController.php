@@ -9,7 +9,9 @@ use App\Http\Resources\Admin\V2\Api\RoleDetailResource;
 use App\Http\Resources\Admin\V2\Api\RoleResource;
 use App\Http\Traits\Responser;
 use App\Models\Employee;
+use App\Models\Permission;
 use App\Models\Role;
+use App\Support\AuthenticatedEmployee;
 use App\Services\Admin\RolePermissionResolver;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -118,6 +120,44 @@ class RoleController extends Controller
         }
     }
 
+    /**
+     * Prevent privilege escalation through role management. A non-admin actor
+     * may not create/rename a role to a full-access (admin) role, nor grant a
+     * role permissions it does not itself hold, nor assign an employee to such
+     * a role. Admins are unaffected. Returns an error response or null.
+     */
+    protected function denyRoleEscalation(?array $permissionIds, bool $assigning, ?Role $existingRole, array $attrs): ?\Illuminate\Http\JsonResponse
+    {
+        $actor = AuthenticatedEmployee::from(request());
+        if ($actor !== null && $actor->isSystemAdmin()) {
+            return null;
+        }
+
+        $effectiveIds = $permissionIds;
+        if ($effectiveIds === null && $assigning && $existingRole !== null) {
+            $effectiveIds = $existingRole->permissions()->pluck('permissions.id')->all();
+        }
+
+        $name = $attrs['name'] ?? $existingRole?->name;
+        $titleEn = $attrs['title_en'] ?? $existingRole?->title_en;
+        $titleAr = $attrs['title_ar'] ?? $existingRole?->title_ar;
+        $touchesIdentity = array_key_exists('name', $attrs) || array_key_exists('title_en', $attrs) || array_key_exists('title_ar', $attrs);
+        if (($permissionIds !== null || $assigning || $touchesIdentity) && Role::grantsFullAccess($name, $titleEn, $titleAr)) {
+            return $this->errorMessage(trans('api.forbidden'), 403);
+        }
+
+        if ($effectiveIds !== null && $effectiveIds !== []) {
+            $names = Permission::query()->whereIn('id', $effectiveIds)->where('is_active', true)->pluck('name');
+            foreach ($names as $permissionName) {
+                if ($actor === null || ! $actor->hasPermission($permissionName)) {
+                    return $this->errorMessage(trans('api.forbidden'), 403);
+                }
+            }
+        }
+
+        return null;
+    }
+
     public function store(StoreRoleRequest $request)
     {
         try {
@@ -132,6 +172,10 @@ class RoleController extends Controller
                 $validated['activate_all_permissions'],
                 $validated['employee_id']
             );
+
+            if ($denied = $this->denyRoleEscalation($permissionIds, (bool) $employeeId, null, $validated)) {
+                return $denied;
+            }
 
             $role = Role::query()->create($validated);
 
@@ -205,6 +249,10 @@ class RoleController extends Controller
                 $validated['activate_all_permissions'],
                 $validated['employee_id']
             );
+
+            if ($denied = $this->denyRoleEscalation($permissionIds, $employeeId !== null, $role, $validated)) {
+                return $denied;
+            }
 
             if ($validated !== []) {
                 $role->update($validated);

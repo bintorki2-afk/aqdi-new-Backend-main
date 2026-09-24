@@ -27,7 +27,7 @@ class ContractWhatsAppController extends Controller
             $query->where('mobile_number', 'like', '%' . $request->mobile_number . '%');
         }
 
-        $contracts = $query->latest()->paginate($request->get('per_page', 20));
+        $contracts = $query->latest()->paginate($this->perPageFromRequest($request));
 
         // Format response based on is_complete status
         $formattedData = $contracts->getCollection()->map(function ($contract) {

@@ -38,7 +38,7 @@ class PaperworkController extends Controller
                 });
             }
 
-            $paperworks = $query->latest()->paginate((int) $request->get('per_page', 20));
+            $paperworks = $query->latest()->paginate($this->perPageFromRequest($request));
 
             return $this->apiResponse([
                 'items' => PaperworkResource::collection($paperworks->items()),

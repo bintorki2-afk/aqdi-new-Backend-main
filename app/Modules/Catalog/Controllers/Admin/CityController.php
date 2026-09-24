@@ -32,7 +32,7 @@ class CityController extends Controller
                 });
             }
 
-            $perPage = max((int) $request->get('per_page', 20), 1);
+            $perPage = $this->perPageFromRequest($request);
             $cities = $query->latest()->paginate($perPage);
 
             return $this->apiResponse(

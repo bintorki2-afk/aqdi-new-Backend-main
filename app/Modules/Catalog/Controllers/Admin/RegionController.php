@@ -28,7 +28,7 @@ class RegionController extends Controller
                 });
             }
 
-            $perPage = max((int) $request->get('per_page', 20), 1);
+            $perPage = $this->perPageFromRequest($request);
             $regions = $query->latest()->paginate($perPage);
 
             return $this->apiResponse(

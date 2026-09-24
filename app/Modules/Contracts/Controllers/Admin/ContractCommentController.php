@@ -28,7 +28,7 @@ class ContractCommentController extends Controller
                 ->where('contract_id', $contractId)
                 ->with('employee')
                 ->latest()
-                ->paginate($request->get('per_page', 20));
+                ->paginate($this->perPageFromRequest($request));
 
             return $this->apiResponse([
                 'items' => ContractCommentResource::collection($comments),

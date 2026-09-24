@@ -35,7 +35,7 @@ class PopupContractController extends Controller
                 $query->where('popup_status_realestate', $request->boolean('popup_status_realestate'));
             }
 
-            $items = $query->latest()->paginate((int) $request->get('per_page', 20));
+            $items = $query->latest()->paginate($this->perPageFromRequest($request));
 
             return $this->apiResponse([
                 'items' => PopupContractResource::collection($items->items()),

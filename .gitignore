@@ -24,3 +24,9 @@ public/*.tar.gz
 /.htaccess
 /bootstrap/cache/*.php
 !/bootstrap/cache/.gitignore
+error_log
+serve.log
+public/error_log
+default.php
+/clear
+public/test.txt

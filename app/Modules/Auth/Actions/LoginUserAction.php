@@ -26,7 +26,10 @@ class LoginUserAction
 
         $user = User::whereIn('mobile', AuthMobile::lookupVariants($request->mobile))->first();
 
-        if (! $user) {
+        // Verify the password BEFORE revealing anything about the account or
+        // sending an OTP. Otherwise this endpoint leaks whether a number exists,
+        // returns the account's details, and lets anyone trigger OTP texts.
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return ['ok' => false, 'message' => trans('api.credentials_error')];
         }
 
@@ -61,22 +64,19 @@ class LoginUserAction
             return ['ok' => false, 'message' => trans('api.block_account')];
         }
 
-        if (Hash::check($request->password, $user->password)) {
-            if ($request->has('fcm_token')) {
-                $user->fcm_token = $request->fcm_token;
-                $user->save();
-            }
-
-            $user->refresh();
-            $result = [
-                'user' => new UserResource($user),
-                'token' => $user->createToken('user_token')->plainTextToken,
-            ];
-            $this->loginCoupon->execute($result, $user);
-
-            return ['ok' => true, 'result' => $result];
+        // Password already verified above.
+        if ($request->has('fcm_token')) {
+            $user->fcm_token = $request->fcm_token;
+            $user->save();
         }
 
-        return ['ok' => false, 'message' => trans('api.credentials_error')];
+        $user->refresh();
+        $result = [
+            'user' => new UserResource($user),
+            'token' => $user->createToken('user_token')->plainTextToken,
+        ];
+        $this->loginCoupon->execute($result, $user);
+
+        return ['ok' => true, 'result' => $result];
     }
 }

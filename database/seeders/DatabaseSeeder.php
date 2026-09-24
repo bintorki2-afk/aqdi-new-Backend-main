@@ -14,6 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Safety: never auto-seed a production database (this seeder installs demo
+        // data and known default credentials). Set ALLOW_DB_RESET=true to override
+        // intentionally for a first-time production setup.
+        if (app()->isProduction()
+            && env('ALLOW_DB_RESET') !== true
+            && env('ALLOW_DB_RESET') !== 'true') {
+            $this->command?->warn('DatabaseSeeder skipped: production (set ALLOW_DB_RESET=true to override).');
+
+            return;
+        }
+
         Schema::disableForeignKeyConstraints();
 
         // Regions & Cities (foundation data)

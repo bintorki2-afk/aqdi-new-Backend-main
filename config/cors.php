@@ -36,10 +36,12 @@ return [
         'http://dashboard.aqdi.sa',
         'https://blogs.aqdi.sa',
         'http://blogs.aqdi.sa',
+        // Explicit Vercel deployments (test). Production uses *.aqdi.sa below.
+        'https://aqdi-new-frontend-main.vercel.app',
+        'https://mosabnaim-aqdi-new-dashboard-main.vercel.app',
     ],
     'allowed_origins_patterns' => [
         '#^https?://([a-z0-9-]+\.)?aqdi\.sa$#i',
-        '#^https?://([a-z0-9-]+\.)?vercel\.app$#i',
         '#^https?://localhost:\d+$#',
         '#^https?://127\.0\.0\.1:\d+$#',
     ],

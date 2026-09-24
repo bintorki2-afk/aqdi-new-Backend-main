@@ -9,6 +9,10 @@ class SubmitContractStep5Action
 {
     public function execute(Contract $contract, Request $request): Contract
     {
+        if ($contract->is_completed) {
+            abort(422, trans('api.completed_contract'));
+        }
+
         $data = [
             'step' => 6,
             'unit_type_id' => $request->unit_type_id,

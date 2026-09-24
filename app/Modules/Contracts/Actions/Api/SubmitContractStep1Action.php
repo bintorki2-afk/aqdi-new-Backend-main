@@ -9,6 +9,10 @@ class SubmitContractStep1Action
 {
     public function execute(Contract $contract, Request $request): Contract
     {
+        if ($contract->is_completed) {
+            abort(422, trans('api.completed_contract'));
+        }
+
         $data = [];
         $data['contract_ownership'] = $request->contract_ownership;
         $data['instrument_number'] = $request->instrument_number;

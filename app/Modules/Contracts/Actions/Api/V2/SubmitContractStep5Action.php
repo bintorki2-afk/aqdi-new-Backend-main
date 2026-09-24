@@ -18,6 +18,10 @@ class SubmitContractStep5Action
      */
     public function execute(Contract $contract, Step5Request $request, int $userId): array
     {
+        if ($contract->is_completed) {
+            return ['ok' => false, 'message' => trans('api.completed_contract'), 'code' => 422];
+        }
+
         $unitsPayload = $request->input('units', []);
         if (! is_array($unitsPayload) || $unitsPayload === []) {
             return ['ok' => false, 'message' => 'يجب إرسال وحدة واحدة على الأقل.', 'code' => 422];

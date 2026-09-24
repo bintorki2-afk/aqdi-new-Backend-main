@@ -17,6 +17,10 @@ class SubmitContractStep1Action
      */
     public function execute(Contract $contract, Step1Request $request): array
     {
+        if ($contract->is_completed) {
+            return ['ok' => false, 'message' => trans('api.completed_contract'), 'code' => 422];
+        }
+
         $validated = $request->validated();
 
         $step1Data = [

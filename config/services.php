@@ -87,4 +87,11 @@ return [
         'from' => env('TWILIO_PHONE'),
     ],
 
+    'order_intake' => [
+        // Optional shared secret for the public POST /api/v2/orders endpoint.
+        // When set, callers must send a matching `Authorization: Bearer <token>`.
+        // Empty => the endpoint is public (per docs/order-intake-api spec on the site).
+        'token' => env('ORDER_INTAKE_TOKEN', ''),
+    ],
+
 ];
